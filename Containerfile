@@ -1,4 +1,4 @@
-FROM registry.redhat.io/rhel10/rhel-bootc:10.1
+FROM registry.redhat.io/rhel10/rhel-bootc:10.2
 RUN dnf install -y tmux mkpasswd insights-client openscap-utils scap-security-guide && dnf clean all
 
 RUN oscap-im --profile pci-dss /usr/share/xml/scap/ssg/content/ssg-rhel10-ds.xml
