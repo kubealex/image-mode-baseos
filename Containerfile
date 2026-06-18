@@ -5,6 +5,13 @@ RUN oscap-im --profile pci-dss /usr/share/xml/scap/ssg/content/ssg-rhel10-ds.xml
 
 RUN pass=$(mkpasswd --method=SHA-512 --rounds=4096 redhat) && useradd -m -G wheel bootc-user -p $pass
 RUN echo "%wheel        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/wheel-sudo
+COPY demo-key.pub /tmp/demo-key.pub
+RUN mkdir -p /home/bootc-user/.ssh && \
+    cp /tmp/demo-key.pub /home/bootc-user/.ssh/authorized_keys && \
+    chown -R bootc-user:bootc-user /home/bootc-user/.ssh && \
+    chmod 700 /home/bootc-user/.ssh && \
+    chmod 600 /home/bootc-user/.ssh/authorized_keys && \
+    rm /tmp/demo-key.pub
 RUN echo "Welcome to this PCI-DSS compliant RHEL Server" > /etc/motd.d/00-hello.motd
 
 # Registering machine to Red Hat Insights
