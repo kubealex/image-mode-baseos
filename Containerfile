@@ -22,3 +22,6 @@ COPY rhc-connect.service /usr/lib/systemd/system/rhc-connect.service
 COPY .rhc_connect_credentials /etc/rhc/.rhc_connect_credentials
 RUN systemctl enable rhc-connect && touch /etc/rhc/.run_rhc_connect_next_boot
 RUN systemctl mask bootc-fetch-apply-updates.timer
+
+RUN printf 'net.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\n' \
+    > /etc/sysctl.d/99-disable-ipv6.conf
