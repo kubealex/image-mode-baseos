@@ -25,3 +25,13 @@ RUN systemctl mask bootc-fetch-apply-updates.timer
 
 RUN printf 'net.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\n' \
     > /etc/sysctl.d/99-disable-ipv6.conf
+
+# Install bootc-api status service
+ARG TARGETARCH=amd64
+RUN curl -fsSL -o /usr/local/bin/bootc-api \
+    "https://github.com/kubealex/bootc-api/releases/latest/download/bootc-api-linux-${TARGETARCH}" && \
+    chmod +x /usr/local/bin/bootc-api
+
+COPY bootc-api.service /etc/systemd/system/bootc-api.service
+RUN systemctl enable bootc-api.service
+RUN firewall-offline-cmd --zone=public --add-port=8005/tcp
