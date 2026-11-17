@@ -31,6 +31,6 @@ podman build -t quay.io/kubealex/image-mode-baseos:latest .
 
 | Tag | RHEL Version |
 |-----|-------------|
-| `latest` | RHEL 10.2 (current) |
+| `latest` | RHEL 10.3 (current) |
+| `rhel10.3` | RHEL 10.3 |
 | `rhel10.2` | RHEL 10.2 |
-| `rhel10.1` | RHEL 10.1 |
