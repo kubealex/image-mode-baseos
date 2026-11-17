@@ -1,5 +1,5 @@
 FROM registry.redhat.io/rhel10/rhel-bootc:10.2
-RUN dnf update -y && dnf install -y tmux mkpasswd insights-client openscap-utils scap-security-guide cloud-init && dnf clean all
+RUN dnf -y --releasever=10.2 update && dnf -y --releasever=10.2 install tmux mkpasswd insights-client openscap-utils scap-security-guide cloud-init && dnf clean all
 
 RUN oscap-im --profile pci-dss /usr/share/xml/scap/ssg/content/ssg-rhel10-ds.xml
 
